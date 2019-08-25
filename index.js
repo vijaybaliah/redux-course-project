@@ -1,3 +1,19 @@
+{
+  type: 'ADD_TODO'
+  todo: {
+    id: 0,
+    name: 'Learn Redux',
+    complete: false,
+  }
+}
+
+function todo(state = [], action) {
+  if (action.type === 'ADD_TODO') {
+    return state.concat(action.todo)
+  }
+  return state
+}
+
 function createStore() {
   let state
   let listeners = []
