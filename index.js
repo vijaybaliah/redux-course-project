@@ -17,6 +17,20 @@ const TOGGLE_TODO = {
   id: 1
 }
 
+const ADD_GOAL = {
+  type: 'ADD_GOAL',
+  goal: {
+    id: 0,
+    name: 'Learn Redux',
+    complete: false,
+  }
+}
+
+const REMOVE_GOAL = {
+  type: 'REMOVE_GOAL',
+  id: 2
+}
+
 function todo(state = [], action) {
   switch(action.type) {
     case 'ADD_TODO':
@@ -29,6 +43,24 @@ function todo(state = [], action) {
       )
     default:
       return state
+  }
+}
+
+function goal(state = [], action) {
+  switch(Selection.type) {
+    case 'ADD_GOAL':
+      return state.concat(action.goal)
+    case 'REMOVE_GOAL':
+      return state.filter(goal => goal.id !== action.id)
+    default:
+      return state
+  }
+}
+
+function app(state = {}, action) {
+  return {
+    todo: todo(state.todo, action),
+    goal: goal(state.goal, action)
   }
 }
 
@@ -57,6 +89,6 @@ function createStore(reducer) {
   }
 }
 
-const store = createStore(todo)
+const store = createStore(app)
 const unsubscribe = store.subcribe(() => console.log('state has changed: ', store.getState()))
 store.dispatch(ADD_TODO)
