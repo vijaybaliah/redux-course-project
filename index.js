@@ -4,6 +4,40 @@ const TOGGLE_TODO = 'TOGGLE_TODO'
 const ADD_GOAL = 'ADD_GOAL'
 const REMOVE_GOAL = 'REMOVE_GOAL'
 
+const addTodoAction = function(todo) {
+  return {
+    type: ADD_TODO,
+    todo
+  }
+}
+
+const removeTodoAction = function(id) {
+  return {
+    type: REMOVE_TODO,
+    id
+  }
+}
+
+const toggleTodoAction = function(id) {
+  return {
+    type: TOGGLE_TODO,
+    id
+  }
+}
+
+const addGoalAction = function(goal) {
+  return {
+    type: ADD_GOAL,
+    goal
+  }
+}
+
+const removeGoalAction = function(id) {
+  return {
+    type: REMOVE_GOAL,
+    id
+  }
+}
 
 function todo(state = [], action) {
   switch(action.type) {
@@ -66,62 +100,38 @@ function createStore(reducer) {
 const store = createStore(app)
 const unsubscribe = store.subcribe(() => console.log('state has changed: ', store.getState()))
 
-store.dispatch({
-  type: 'ADD_TODO',
-  todo: {
-    id: 0,
-    name: 'Learn Redux',
-    complete: false,
-  }
-})
+store.dispatch(addTodoAction({
+  id: 0,
+  name: 'Learn Redux',
+  complete: false,
+}))
 
-store.dispatch({
-  type: 'ADD_TODO',
-  todo: {
-    id: 1,
-    name: 'Learn functional programming',
-    complete: false,
-  }
-})
+store.dispatch(addTodoAction({
+  id: 1,
+  name: 'Learn functional programming',
+  complete: false,
+}))
 
-store.dispatch({
-  type: 'ADD_TODO',
-  todo: {
-    id: 2,
-    name: 'Learn swimming',
-    complete: false,
-  }
-})
+store.dispatch(addTodoAction({
+  id: 2,
+  name: 'Learn swimming',
+  complete: false,
+}))
 
-store.dispatch({
-  type: 'REMOVE_TODO',
-  id: 2
-})
+store.dispatch(removeTodoAction(2))
 
-store.dispatch({
-  type: 'TOGGLE_TODO',
-  id: 1
-})
+store.dispatch(toggleTodoAction(1))
 
-store.dispatch({
-  type: 'ADD_GOAL',
-  goal: {
-    id: 0,
-    name: 'Learn Redux',
-    complete: false,
-  }
-})
+store.dispatch(addGoalAction({
+  id: 0,
+  name: 'Learn Redux',
+  complete: false,
+}))
 
-store.dispatch({
-  type: 'ADD_GOAL',
-  goal: {
-    id: 1,
-    name: 'Learn music',
-    complete: false,
-  }
-})
+store.dispatch(addGoalAction({
+  id: 1,
+  name: 'Learn music',
+  complete: false,
+}))
 
-store.dispatch({
-  type: 'REMOVE_GOAL',
-  id: 1
-})
+store.dispatch(removeGoalAction(1))
