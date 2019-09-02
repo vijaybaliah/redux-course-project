@@ -7,10 +7,29 @@ const ADD_TODO = {
   }
 }
 
+const REMOVE_TODO = {
+  type: 'REMOVE_TODO',
+  id: 2
+}
+
+const TOGGLE_TODO = {
+  type: 'TOGGLE_TODO',
+  id: 1
+}
+
 function todo(state = [], action) {
   switch(action.type) {
     case 'ADD_TODO':
       return state.concat(action.todo)
+    case 'REMOVE_TODO':
+      return state.filter(todo => todo.id !== action.id)
+    case 'TOGGLE_TODO':
+      return state.map(todo => todo.id !== action.id ? todo : Object.assign({},
+        todo,
+        {
+          complete: !todo.complete
+        })
+      )
     default:
       return state
   }
